@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,initial-scale=1"><title>Starting Soon</title>
+<link href="assets/fonts.css" rel="stylesheet">
+<style>
+:root{--pink:#FF2E88;--orange:#FF8A3D;--purple:#6B2FD6;--cyan:#22E3E3;--ink:#0B0B14;--cream:#FFF5EC;--display:'Bebas Neue',sans-serif;--body:Inter,sans-serif;--brush:Knewave,var(--display);--gta:GTA,var(--display);--slow:12s;--fast:500ms;--pink-glow:color-mix(in srgb,var(--pink) 47%,transparent);--pink-soft:color-mix(in srgb,var(--pink) 30%,transparent)}
+*{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent;color:var(--cream);font-family:var(--body)}
+.scene{position:absolute;inset:0;overflow:hidden}
+.synth{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 65%,#37115c55,transparent 55%)}
+body:not(.no-bg) .synth{display:none}
+.no-bg .art,.no-bg .shade{display:none}
+.sun{position:absolute;width:440px;height:440px;border-radius:50%;overflow:hidden;left:50%;top:20%;transform:translateX(-50%);background:linear-gradient(180deg,#ffd16b,var(--orange) 45%,var(--pink));box-shadow:0 0 100px var(--pink-soft);animation:pulse 8s ease-in-out infinite}
+.sun:after{content:"";position:absolute;inset:48% 0 0;background:repeating-linear-gradient(to bottom,transparent 0 13px,#38104e 14px 21px)}
+.horizon{position:absolute;left:0;right:0;bottom:0;height:48%;background:linear-gradient(180deg,transparent,#170d2b44 30%,#0b0b14aa),repeating-linear-gradient(90deg,transparent 0 95px,#22e3e315 96px 98px);clip-path:polygon(0 35%,100% 0,100% 100%,0 100%)}
+.grid{position:absolute;left:-20%;right:-20%;bottom:-25%;height:52%;background:linear-gradient(#22e3e355 1px,transparent 1px),linear-gradient(90deg,#22e3e355 1px,transparent 1px);background-size:100% 48px,90px 100%;transform:perspective(330px) rotateX(62deg);transform-origin:top;mask-image:linear-gradient(transparent,#000)}
+.palm{position:absolute;bottom:6%;width:250px;height:430px;opacity:.8;fill:#2a0f3d;animation:sway 11s ease-in-out infinite}
+.palm.left{left:4%}.palm.right{right:4%;scale:-1 1;animation-delay:-4s}
+.art{position:absolute;inset:0}
+.slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:slide 24s linear infinite,zoom 24s linear infinite}
+.slide:nth-child(2){animation-delay:8s}.slide:nth-child(3){animation-delay:16s}
+.shade{position:absolute;inset:0;background:radial-gradient(ellipse 55% 50% at 50% 50%,#0b0b14b3,#0b0b1455 60%,transparent),linear-gradient(transparent 60%,#0b0b14cc)}
+.logo{position:absolute;top:40px;left:48px;width:250px;filter:drop-shadow(0 6px 18px #0b0b14aa)}
+.copy{position:absolute;top:47%;left:50%;transform:translate(-50%,-50%);width:100%;text-align:center}
+.kicker{font-size:16px;letter-spacing:.55em;color:var(--cyan);font-weight:800;text-shadow:0 2px 8px #0b0b14}
+h1{margin:14px 0 0;font-weight:400;line-height:.9;transform:rotate(-4deg)}
+.line-top{display:block;font:72px/1 var(--gta);letter-spacing:.02em;color:var(--cream);text-shadow:4px 4px 0 var(--ink),0 0 24px var(--pink-soft)}
+.line-main{display:inline-block;padding:0 .12em;font:170px/1 var(--brush);background:linear-gradient(180deg,#ff8ac0,var(--pink) 45%,var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(5px 5px 0 var(--ink)) drop-shadow(0 0 22px var(--pink-glow))}
+.swash{display:block;width:640px;height:44px;margin:-8px auto 0;transform:rotate(-4deg)}
+.swash .a{fill:var(--cyan)}.swash .b{fill:var(--pink)}
+.sub{margin-top:18px;font-size:17px;letter-spacing:.32em;color:#fff5eccb;text-shadow:0 2px 8px #0b0b14}
+.timer{display:inline-block;margin-top:26px;padding:10px 40px;border:2px solid var(--cyan);background:#0b0b14cc;box-shadow:0 0 25px #22e3e366,inset 0 0 18px #22e3e322;transform:skewX(-12deg)}
+.timer span{display:block;transform:skewX(12deg);font:64px/1.1 var(--gta);letter-spacing:.06em;color:var(--cream)}
+.timer.done{border-color:var(--pink);box-shadow:0 0 30px var(--pink-glow);animation:blink 1s steps(2) infinite}
+.loading{position:absolute;right:48px;bottom:84px;display:flex;align-items:center;gap:14px;font:24px var(--display);letter-spacing:.18em;text-shadow:0 2px 6px #0b0b14}
+.spinner{width:30px;height:30px;border-radius:50%;border:4px solid #fff5ec33;border-top-color:var(--cream);animation:spin 1s linear infinite}
+.ticker{position:absolute;bottom:0;left:0;right:0;height:56px;border-top:2px solid var(--pink);background:#0b0b14e0;display:flex;align-items:center;overflow:hidden}
+.ticker .icon{flex:none;width:64px;height:56px;padding:8px 14px;background:linear-gradient(135deg,var(--pink),var(--purple));fill:var(--ink);clip-path:polygon(0 0,100% 0,82% 100%,0 100%)}
+.ticker .track{flex:1;overflow:hidden}
+.ticker span{display:inline-block;white-space:nowrap;font:24px var(--display);letter-spacing:.16em;color:var(--cream);animation:marquee 28s linear infinite}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}
+@keyframes pulse{50%{filter:brightness(1.15);box-shadow:0 0 140px var(--pink-glow)}}
+@keyframes sway{50%{transform:rotate(2deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes slide{0%{opacity:0}4%,33%{opacity:1}38%,100%{opacity:0}}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.12)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:.55}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important}.slide:first-child{opacity:1}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><symbol id="palm" viewBox="0 0 120 200"><path d="M57 200c5-48 9-94 2-128l7-2c8 37 4 83-1 130z"/><path d="M62 70C46 40 20 32 2 42c22-3 41 6 56 28zM62 70C52 38 59 14 74 2c-6 20-5 43-8 66zM64 70c18-27 40-32 56-24-20 0-38 9-52 26zM61 72C36 64 15 76 7 97c14-14 32-21 52-23zM65 72c24-5 42 7 48 28-12-14-28-21-46-25z"/></symbol></svg>
+<main class="scene">
+<div class="synth"><div class="sun"></div><div class="horizon"></div><div class="grid"></div>
+<svg class="palm left" viewBox="0 0 120 200" preserveAspectRatio="xMidYMax meet"><use href="#palm"/></svg>
+<svg class="palm right" viewBox="0 0 120 200" preserveAspectRatio="xMidYMax meet"><use href="#palm"/></svg></div>
+<div class="art"><img class="slide" src="assets/img/bg-loading-1.webp" alt=""><img class="slide" src="assets/img/bg-loading-2.webp" alt=""><img class="slide" src="assets/img/bg-loading-3.webp" alt=""></div>
+<div class="shade"></div>
+<img class="logo" src="assets/img/logo-gta6.png" alt="Grand Theft Auto VI">
+<section class="copy"><div class="kicker" id="kicker">TRANSMISSÃO EM BREVE · AO VIVO</div><h1 id="title"></h1>
+<svg class="swash" viewBox="0 0 640 44"><path class="a" d="M14 32Q320 2 630 6L600 15Q320 13 44 40Z"/><path class="b" d="M70 42Q340 20 560 21L528 28Q320 28 96 44Z"/></svg>
+<div class="sub" id="subtitle">PREPARE-SE PARA A NOITE</div><div class="timer" id="timer"><span id="time">05:00</span></div></section>
+<div class="loading"><i class="spinner"></i><span>CARREGANDO</span></div>
+<div class="ticker"><svg class="icon" viewBox="0 0 120 200" preserveAspectRatio="xMidYMid meet"><use href="#palm"/></svg><div class="track"><span id="ticker"></span></div></div>
+<div class="grain"></div></main>
+<script>
+const q=new URLSearchParams(location.search),get=(k,d)=>q.get(k)||d;
+const num=(k,d)=>{const n=Number(q.get(k));return q.get(k)&&Number.isFinite(n)?n:d};
+if(/^#?[0-9a-f]{3,8}$/i.test(q.get('color')||''))document.documentElement.style.setProperty('--pink','#'+q.get('color').replace('#',''));
+if(q.get('bg')==='0')document.body.classList.add('no-bg');
+
+const title=document.querySelector('#title'),lines=get('title','A LIVE JÁ VAI|COMEÇAR').split(/\||\n/);
+lines.forEach((text,index)=>{const line=document.createElement('span');line.className=index===lines.length-1?'line-main':'line-top';line.textContent=text;title.append(line)});
+document.querySelector('#kicker').textContent=get('kicker','TRANSMISSÃO EM BREVE · AO VIVO');
+document.querySelector('#subtitle').textContent=get('subtitle','PREPARE-SE PARA A NOITE');
+
+const ticker=document.querySelector('#ticker'),tickerUnit=get('ticker','INSCREVA-SE • DEIXE SEU LIKE • ATIVE O SININHO')+' • ';
+document.fonts.ready.then(()=>{
+ticker.textContent=tickerUnit;
+const repeat=Math.max(1,Math.ceil(1920/ticker.scrollWidth)),half=tickerUnit.repeat(repeat);
+ticker.textContent=half+half;
+ticker.style.animationDuration=(ticker.scrollWidth/2/90)+'s';
+});
+
+// Countdown baseado em horário absoluto: sobrevive ao "Refresh browser when scene becomes active".
+function resolveEnd(){
+const until=q.get('until');
+if(/^\d{1,2}:\d{2}$/.test(until||'')){const [hours,minutes]=until.split(':').map(Number),target=new Date();target.setHours(hours,minutes,0,0);if(target-Date.now()<-12*3600e3)target.setDate(target.getDate()+1);return target.getTime()}
+const minutes=Math.max(0,num('minutes',5)),key='vcl:countdown:'+minutes;
+let end=0;try{end=Number(localStorage.getItem(key))||0}catch{}
+if(q.get('reset')==='1'||!end||Date.now()>end+30*60e3){end=Date.now()+minutes*60e3;try{localStorage.setItem(key,String(end))}catch{}}
+return end;
+}
+const end=resolveEnd(),timer=document.querySelector('#timer'),time=document.querySelector('#time'),pad=value=>String(value).padStart(2,'0');
+function tick(){
+const left=Math.max(0,Math.ceil((end-Date.now())/1000)),hours=Math.floor(left/3600),minutes=Math.floor(left%3600/60),seconds=left%60;
+time.textContent=(hours?hours+':':'')+pad(minutes)+':'+pad(seconds);
+timer.classList.toggle('done',left===0);
+}
+tick();setInterval(tick,250);
+</script></body></html>

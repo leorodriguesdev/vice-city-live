@@ -1,0 +1,76 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,initial-scale=1"><title>Alert</title><link href="assets/fonts.css" rel="stylesheet"><style>
+:root{--pink:#FF2E88;--orange:#FF8A3D;--purple:#6B2FD6;--cyan:#22E3E3;--ink:#0B0B14;--cream:#FFF5EC;--gold:#F5C542;--money:#72D66B;--display:'Bebas Neue',sans-serif;--body:Inter,sans-serif;--gta:GTA,var(--display);--fast:500ms;--pink-glow:color-mix(in srgb,var(--pink) 47%,transparent);--pink-soft:color-mix(in srgb,var(--pink) 33%,transparent)}
+*{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent;color:var(--cream);font-family:var(--body)}
+.outline{text-shadow:-3px -3px 0 var(--ink),3px -3px 0 var(--ink),-3px 3px 0 var(--ink),3px 3px 0 var(--ink),0 6px 16px #0b0b14aa}
+.alert{position:absolute;top:10%;left:50%;width:820px;height:230px;transform:translate(-50%,-35px) scale(.96);opacity:0;transition:opacity var(--fast) cubic-bezier(.2,.8,.2,1),transform var(--fast) cubic-bezier(.2,.8,.2,1)}
+.alert.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.emblem{position:absolute;left:0;top:20px;width:210px;height:210px;z-index:2}
+.sun{position:absolute;left:30px;top:20px;width:150px;height:150px;border-radius:50%;overflow:hidden;background:linear-gradient(#ffd16b,var(--orange) 45%,var(--pink));box-shadow:0 0 34px var(--pink-glow)}
+.sun:after{content:"";position:absolute;inset:50% 0 0;background:repeating-linear-gradient(transparent 0 8px,#36103c 9px 14px)}
+.emblem .palms{position:absolute;left:0;bottom:0;width:190px;fill:#1d0b2b;filter:drop-shadow(0 0 6px var(--pink-soft))}
+.card{position:absolute;left:150px;right:20px;top:58px;height:160px;padding:22px 70px 0 110px;border:2px solid transparent;background:linear-gradient(110deg,#0b0b14f7,#24103af2) padding-box,linear-gradient(90deg,var(--pink),var(--purple),var(--cyan)) border-box;transform:skewX(-14deg);box-shadow:0 0 35px var(--pink-soft);text-align:center}
+.card>*{transform:skewX(14deg)}
+.stars{position:absolute;left:210px;right:60px;top:0;display:flex;justify-content:center;gap:10px;z-index:3}
+.star{font:46px/1 var(--gta);color:#ffffff33;transition:color .2s,text-shadow .2s}
+.star.on{color:var(--gold);text-shadow:0 0 14px var(--gold),2px 2px 0 var(--ink)}
+.crown{position:absolute;right:0;top:20px;width:76px;fill:var(--gold);stroke:var(--orange);stroke-width:2;filter:drop-shadow(0 0 12px var(--orange));transform:rotate(18deg);z-index:3}
+.type{font:34px/1 var(--display);letter-spacing:.06em;color:var(--cream)}
+.name{font:60px/1.05 var(--gta);letter-spacing:.01em;margin:4px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.detail{font-size:14px;font-weight:800;letter-spacing:.3em;color:#fff5eccc}
+.mission{position:absolute;top:30%;left:0;right:0;text-align:center;opacity:0;transform:scale(1.25);transition:opacity var(--fast) ease,transform var(--fast) cubic-bezier(.2,.8,.2,1)}
+.mission.show{opacity:1;transform:scale(1)}
+.mission:before{content:"";position:absolute;left:0;right:0;top:-30px;bottom:-30px;background:linear-gradient(90deg,transparent,#0b0b14aa 25%,#0b0b14aa 75%,transparent);z-index:-1}
+.mission-title{font:120px/1 var(--gta);letter-spacing:.01em;color:var(--gold)}
+.mission-name{margin-top:6px;font:56px/1 var(--gta);color:var(--cream)}
+.mission-amount{margin-top:10px;font:46px/1 var(--gta);color:var(--money)}
+.mission-message{margin-top:12px;font-size:16px;font-weight:800;letter-spacing:.3em;color:var(--cream)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+</style></head><body>
+<section class="alert" id="alert">
+<div class="emblem"><div class="sun"></div><svg class="palms" viewBox="0 0 160 200"><g transform="translate(10 0)"><path d="M57 200c5-48 9-94 2-128l7-2c8 37 4 83-1 130z"/><path d="M62 70C46 40 20 32 2 42c22-3 41 6 56 28zM62 70C52 38 59 14 74 2c-6 20-5 43-8 66zM64 70c18-27 40-32 56-24-20 0-38 9-52 26zM61 72C36 64 15 76 7 97c14-14 32-21 52-23zM65 72c24-5 42 7 48 28-12-14-28-21-46-25z"/></g><g transform="translate(70 60) scale(.7)"><path d="M57 200c5-48 9-94 2-128l7-2c8 37 4 83-1 130z"/><path d="M62 70C46 40 20 32 2 42c22-3 41 6 56 28zM62 70C52 38 59 14 74 2c-6 20-5 43-8 66zM64 70c18-27 40-32 56-24-20 0-38 9-52 26zM61 72C36 64 15 76 7 97c14-14 32-21 52-23zM65 72c24-5 42 7 48 28-12-14-28-21-46-25z"/></g></svg></div>
+<div class="stars" id="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+<svg class="crown" viewBox="0 0 64 48"><path d="M4 14l14 12L32 4l14 22 14-12-6 30H10z"/></svg>
+<div class="card"><div class="type" id="type">NOVO SEGUIDOR!</div><div class="name outline" id="name">PLAYER ONE</div><div class="detail" id="detail">BEM-VINDO(A) AO CANAL!</div></div>
+</section>
+<section class="mission" id="mission"><div class="mission-title outline" id="mission-title">MISSÃO CUMPRIDA!</div><div class="mission-name outline" id="mission-name"></div><div class="mission-amount outline" id="mission-amount"></div><div class="mission-message" id="mission-message"></div></section>
+<script>
+const q=new URLSearchParams(location.search),$=selector=>document.querySelector(selector);
+if(/^#?[0-9a-f]{3,8}$/i.test(q.get('color')||''))document.documentElement.style.setProperty('--pink','#'+q.get('color').replace('#',''));
+const durationMs=Math.max(2,Number(q.get('duration'))||6)*1000,useMission=q.get('mission')!=='0';
+const labels={follow:'NOVO SEGUIDOR!',subscriber:'NOVA INSCRIÇÃO!',donation:'NOVA DOAÇÃO!',raid:'RAID NA ÁREA!'};
+const card=$('#alert'),mission=$('#mission'),stars=[...document.querySelectorAll('.star')];
+const queue=[];let busy=false,timers=[];
+
+// Remover e readicionar .show no mesmo frame não reinicia a transição; o reflow forçado garante a reentrada.
+function restart(element){element.classList.remove('show');void element.offsetWidth;element.classList.add('show')}
+function present({type='follow',name='PLAYER ONE',amount='',message='BEM-VINDO(A) AO CANAL!',style}={}){
+const label=labels[type]||String(type).toUpperCase();
+if((style||(useMission&&type!=='follow'?'mission':'card'))==='mission'){
+$('#mission-name').textContent=name;
+$('#mission-amount').textContent=amount?`RESPEITO + ${amount}`:'RESPEITO +';
+$('#mission-message').textContent=`${label} · ${message}`;
+restart(mission);return mission;
+}
+$('#type').textContent=label;$('#name').textContent=name;$('#detail').textContent=amount?`${amount} · ${message}`:message;
+stars.forEach(star=>star.classList.remove('on'));
+restart(card);
+stars.forEach((star,index)=>timers.push(setTimeout(()=>star.classList.add('on'),220+index*220)));
+return card;
+}
+function next(){
+const data=queue.shift();
+if(!data){busy=false;return}
+busy=true;timers.forEach(clearTimeout);timers=[];
+const element=present(data);
+timers.push(setTimeout(()=>{element.classList.remove('show');timers.push(setTimeout(next,700))},durationMs));
+}
+function showAlert(data={}){queue.push(data);if(!busy)next()}
+window.showAlert=showAlert;
+// Disparo externo via obs-websocket: CallVendorRequest(vendorName "obs-browser", requestType "emit_event", event_name "vcl-alert").
+window.addEventListener('vcl-alert',event=>showAlert(event.detail||{}));
+
+if(q.get('test')==='1'){
+const samples=[{type:'follow',name:'VICE_PLAYER',message:'BEM-VINDO(A) AO CANAL!'},{type:'subscriber',name:'SUNSET_GAMER',amount:'NÍVEL 1',message:'VALEU PELO SUB!'},{type:'donation',name:'MIAMI_88',amount:'R$ 25,00',message:'VOCÊ É LENDA!'}];
+let index=0;showAlert(samples[0]);setInterval(()=>{if(!busy)showAlert(samples[++index%samples.length])},1000);
+}
+</script></body></html>

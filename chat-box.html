@@ -1,0 +1,18 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,initial-scale=1"><title>Chat frame</title><link href="assets/fonts.css" rel="stylesheet"><style>
+:root{--pink:#FF2E88;--orange:#FF8A3D;--purple:#6B2FD6;--cyan:#22E3E3;--ink:#0B0B14;--cream:#FFF5EC;--display:'Bebas Neue',sans-serif;--slow:12s;--pink-glow:color-mix(in srgb,var(--pink) 40%,transparent);--pink-strong:color-mix(in srgb,var(--pink) 47%,transparent)}
+*{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent}
+.frame{position:absolute;left:var(--x,75%);top:var(--y,20%);width:var(--w,22%);height:var(--h,65%);filter:drop-shadow(0 0 12px var(--pink-glow))}
+.ring{position:absolute;inset:0;padding:3px;border-radius:10px;background:linear-gradient(145deg,var(--orange),var(--pink),var(--purple),var(--cyan));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.frame:before,.frame:after{content:"";position:absolute;width:42px;height:42px;border-color:var(--cyan);border-style:solid}
+.frame:before{top:0;left:0;border-width:4px 0 0 4px}.frame:after{bottom:0;right:0;border-width:0 4px 4px 0}
+.label{position:absolute;top:-21px;left:50%;transform:translateX(-50%) skewX(-14deg);padding:6px 34px;background:linear-gradient(var(--ink),var(--ink)) padding-box,linear-gradient(90deg,var(--pink),var(--cyan)) border-box;border:2px solid transparent;box-shadow:0 0 14px var(--pink-strong)}
+.label span{display:block;transform:skewX(14deg);color:var(--cream);font:24px var(--display);letter-spacing:.18em;white-space:nowrap}
+.palms{position:absolute;right:-18px;bottom:-6px;height:28%;fill:#1d0b2b;filter:drop-shadow(0 0 6px var(--pink-strong))}
+</style></head><body><div class="frame" id="frame"><div class="ring"></div><div class="label"><span id="label">CHAT</span></div>
+<svg class="palms" viewBox="0 0 160 200"><g transform="translate(0 0)"><path d="M57 200c5-48 9-94 2-128l7-2c8 37 4 83-1 130z"/><path d="M62 70C46 40 20 32 2 42c22-3 41 6 56 28zM62 70C52 38 59 14 74 2c-6 20-5 43-8 66zM64 70c18-27 40-32 56-24-20 0-38 9-52 26zM61 72C36 64 15 76 7 97c14-14 32-21 52-23zM65 72c24-5 42 7 48 28-12-14-28-21-46-25z"/></g><g transform="translate(70 70) scale(.65)"><path d="M57 200c5-48 9-94 2-128l7-2c8 37 4 83-1 130z"/><path d="M62 70C46 40 20 32 2 42c22-3 41 6 56 28zM62 70C52 38 59 14 74 2c-6 20-5 43-8 66zM64 70c18-27 40-32 56-24-20 0-38 9-52 26zM61 72C36 64 15 76 7 97c14-14 32-21 52-23zM65 72c24-5 42 7 48 28-12-14-28-21-46-25z"/></g></svg>
+</div><script>
+const q=new URLSearchParams(location.search),f=document.querySelector('#frame');
+for(const [k,d] of Object.entries({x:'75%',y:'20%',w:'22%',h:'65%'}))f.style.setProperty('--'+k,q.get(k)||d);
+document.querySelector('#label').textContent=q.get('title')||'CHAT';
+if(/^#?[0-9a-f]{3,8}$/i.test(q.get('color')||''))document.documentElement.style.setProperty('--pink','#'+q.get('color').replace('#',''));
+</script></body></html>

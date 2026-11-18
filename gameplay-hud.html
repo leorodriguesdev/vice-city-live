@@ -1,0 +1,72 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,initial-scale=1"><title>Gameplay HUD</title><link href="assets/fonts.css" rel="stylesheet"><style>
+:root{--pink:#FF2E88;--orange:#FF8A3D;--purple:#6B2FD6;--cyan:#22E3E3;--ink:#0B0B14;--cream:#FFF5EC;--money:#72D66B;--display:'Bebas Neue',sans-serif;--body:Inter,sans-serif;--gta:GTA,var(--display);--slow:12s;--fast:500ms;--pink-glow:color-mix(in srgb,var(--pink) 45%,transparent);--purple-soft:color-mix(in srgb,var(--purple) 20%,transparent)}
+*{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent;color:var(--cream);font-family:var(--body)}
+.outline{text-shadow:-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink),2px 2px 0 var(--ink),0 3px 8px #0b0b14aa}
+.hud{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);height:70px;max-width:94%;display:flex;align-items:center;white-space:nowrap}
+.badge{flex:none;width:78px;height:70px;padding:8px 16px 6px;fill:#1d0b2b;background:linear-gradient(160deg,var(--orange),var(--pink) 55%,var(--purple));clip-path:polygon(0 0,100% 0,84% 100%,0 100%);margin-right:-10px;position:relative;z-index:1}
+.panel{display:flex;align-items:center;gap:26px;height:100%;padding:0 40px 0 34px;border:2px solid transparent;background:linear-gradient(100deg,#0b0b14f2,#17102bf2) padding-box,linear-gradient(90deg,var(--pink),var(--purple),var(--cyan)) border-box;clip-path:polygon(0 0,100% 0,calc(100% - 22px) 100%,0 100%);box-shadow:0 0 24px var(--purple-soft)}
+.channel{display:flex;align-items:center;gap:12px;font:30px var(--display);letter-spacing:.08em}
+.channel svg{width:34px;height:34px;fill:var(--cream)}
+.slash{width:2px;height:40px;background:#fff5ec66;transform:skewX(-20deg)}
+.goal{width:360px}
+.goal-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;font-size:13px;font-weight:700;letter-spacing:.06em;color:#fff5ecdd}
+.money{font:22px/1 var(--gta);letter-spacing:.02em;color:var(--money)}
+.track{height:9px;background:#ffffff1f;border-radius:8px;overflow:hidden}
+.fill{height:100%;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--pink),var(--orange));box-shadow:0 0 12px var(--pink);border-radius:8px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.clock-box{display:flex;align-items:center;gap:12px;height:100%;margin-left:-8px;padding:0 34px 0 40px;border:2px solid var(--cyan);background:#0b0b14f2;clip-path:polygon(22px 0,100% 0,calc(100% - 22px) 100%,0 100%);box-shadow:inset 0 0 18px #22e3e322}
+.clock-box svg{width:30px;height:30px;fill:none;stroke:var(--cream);stroke-width:2.4;stroke-linecap:round}
+.clock{font:38px var(--display);letter-spacing:.06em;color:var(--cream)}
+.live{margin-left:16px;font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--pink);text-shadow:0 0 8px var(--pink-glow)}
+.wanted{position:absolute;top:36px;right:48px;display:flex;gap:6px;font:44px/1 var(--gta);color:#ffffff40}
+.wanted[hidden]{display:none}
+.wanted .on{color:var(--cream)}
+.wanted.flash .on{animation:wanted 1.2s steps(2) 3}
+@keyframes wanted{50%{color:#4aa3ff}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}.wanted.flash .on{animation:none}}
+</style></head><body>
+<div class="wanted outline" id="wanted" hidden></div>
+<div class="hud">
+<svg class="badge" viewBox="0 0 120 200" preserveAspectRatio="xMidYMax meet"><path d="M57 200c5-48 9-94 2-128l7-2c8 37 4 83-1 130z"/><path d="M62 70C46 40 20 32 2 42c22-3 41 6 56 28zM62 70C52 38 59 14 74 2c-6 20-5 43-8 66zM64 70c18-27 40-32 56-24-20 0-38 9-52 26zM61 72C36 64 15 76 7 97c14-14 32-21 52-23zM65 72c24-5 42 7 48 28-12-14-28-21-46-25z"/></svg>
+<div class="panel"><div class="channel"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.87.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg><span id="channel">/SEUNOME</span></div>
+<i class="slash"></i>
+<div class="goal"><div class="goal-label"><span id="goal">META DE SEGUIDORES</span><span class="money outline" id="numbers">$0 / $1.000</span></div><div class="track"><div class="fill" id="fill"></div></div></div></div>
+<div class="clock-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6.5V12l3.5 2.5"/></svg><span class="clock" id="clock">00:00</span><span class="live">● LIVE</span></div>
+</div><script>
+const q=new URLSearchParams(location.search),get=(k,d)=>q.get(k)||d;
+const toNumber=(value,fallback)=>{const n=Number(value);return value!==null&&value!==''&&Number.isFinite(n)?n:fallback};
+if(/^#?[0-9a-f]{3,8}$/i.test(q.get('color')||''))document.documentElement.style.setProperty('--pink','#'+q.get('color').replace('#',''));
+document.querySelector('#channel').textContent=get('channel','/SEUNOME');
+
+const prefix=get('prefix','$'),format=new Intl.NumberFormat('pt-BR'),numbers=document.querySelector('#numbers'),fill=document.querySelector('#fill'),goalLabel=document.querySelector('#goal');
+const state={current:0,goal:1000,shown:0};
+let tween=0;
+function renderGoal(){numbers.textContent=`${prefix}${format.format(Math.round(state.shown))} / ${prefix}${format.format(state.goal)}`}
+// Contagem progressiva do valor, como o contador de dinheiro do GTA.
+function setGoal({current=state.current,goal=state.goal,label}={}){
+state.goal=Math.max(1,toNumber(goal,state.goal));state.current=Math.max(0,toNumber(current,state.current));
+if(label)goalLabel.textContent=label;
+fill.style.transform=`scaleX(${Math.min(1,state.current/state.goal)})`;
+cancelAnimationFrame(tween);const from=state.shown,to=state.current,start=performance.now();
+const step=now=>{const progress=Math.min(1,(now-start)/700);state.shown=from+(to-from)*(1-Math.pow(1-progress,3));renderGoal();if(progress<1)tween=requestAnimationFrame(step)};
+tween=requestAnimationFrame(step);
+}
+
+const wanted=document.querySelector('#wanted');let wantedLevel=0;
+function setWanted(level){
+const next=Math.max(0,Math.min(5,Math.round(toNumber(level,0))));
+wanted.hidden=next===0;wanted.innerHTML='';
+for(let i=0;i<5;i++){const star=document.createElement('span');star.textContent='★';if(i<next)star.className='on';wanted.append(star)}
+wanted.classList.remove('flash');if(next>wantedLevel){void wanted.offsetWidth;wanted.classList.add('flash')}
+wantedLevel=next;
+}
+
+window.setGoal=setGoal;window.setWanted=setWanted;
+// Eventos disparados via obs-websocket: CallVendorRequest(vendorName "obs-browser", requestType "emit_event").
+window.addEventListener('vcl-goal',event=>setGoal(event.detail||{}));
+window.addEventListener('vcl-wanted',event=>setWanted((event.detail||{}).level));
+
+goalLabel.textContent=get('label','META DE SEGUIDORES');
+setGoal({current:q.get('current'),goal:q.get('goal')});
+setWanted(q.get('stars'));
+function clock(){document.querySelector('#clock').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,1000);
+</script></body></html>

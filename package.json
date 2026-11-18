@@ -1,0 +1,15 @@
+{
+  "name": "vice-city-live",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.10"
+  },
+  "scripts": {
+    "bridge": "node --env-file=.env --experimental-websocket bridge/twitch-bridge.mjs",
+    "bridge:login": "node --env-file=.env --experimental-websocket bridge/twitch-bridge.mjs --login",
+    "bridge:test": "node --env-file=.env --experimental-websocket bridge/twitch-bridge.mjs --test",
+    "stinger": "python3 tools/render-stinger.py .stinger-frames 1200 && ffmpeg -hide_banner -loglevel error -y -framerate 60 -i .stinger-frames/frame_%03d.png -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 18 -auto-alt-ref 0 -row-mt 1 assets/video/stinger.webm && rm -rf .stinger-frames",
+    "test": "node --test bridge/"
+  }
+}

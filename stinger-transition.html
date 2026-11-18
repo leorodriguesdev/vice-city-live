@@ -1,0 +1,25 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,initial-scale=1"><title>Stinger Transition</title><style>
+:root{--pink:#FF2E88;--orange:#FF8A3D;--purple:#6B2FD6;--cyan:#22E3E3;--ink:#0B0B14;--duration:1200ms;--band:calc(var(--duration)*.85);--ease:cubic-bezier(.72,0,.28,1)}
+*{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent}
+.band{position:absolute;inset:-30%;transform:translate3d(-130%,0,0) skewX(-22deg);will-change:transform}
+.one{background:linear-gradient(110deg,var(--pink),var(--orange))}
+.two{background:linear-gradient(110deg,var(--purple),var(--pink),var(--cyan))}
+.three{background:var(--ink)}
+.logo{position:absolute;left:50%;top:50%;width:560px;opacity:0;transform:translate(-50%,-50%) scale(.7);filter:drop-shadow(0 0 30px #ff2e8866)}
+/* Atrasos proporcionais: a última faixa termina exatamente em --duration; tela 100% coberta entre ~38% e ~66% da duração. */
+.play .one{animation:cross var(--band) var(--ease) forwards}
+.play .two{animation:cross var(--band) var(--ease) calc(var(--duration)*.075) forwards}
+.play .three{animation:cross var(--band) var(--ease) calc(var(--duration)*.15) forwards}
+.play .logo{animation:logo var(--duration) ease-out forwards}
+@keyframes cross{0%{transform:translate3d(-130%,0,0) skewX(-22deg)}45%,60%{transform:translate3d(0,0,0) skewX(-22deg)}100%{transform:translate3d(130%,0,0) skewX(-22deg)}}
+@keyframes logo{0%,38%{opacity:0;transform:translate(-50%,-50%) scale(.7)}46%,58%{opacity:1;transform:translate(-50%,-50%) scale(1)}66%,100%{opacity:0;transform:translate(-50%,-50%) scale(1.15)}}
+@media(prefers-reduced-motion:reduce){.band{animation:none!important;transform:translate3d(130%,0,0) skewX(-22deg)}.logo{animation:none!important}}
+</style></head><body><div class="band one"></div><div class="band two"></div><div class="band three"></div><img class="logo" src="assets/img/logo-gta6.png" alt=""><script>
+const q=new URLSearchParams(location.search),durationMs=Math.max(300,Number(q.get('duration'))||1200);
+document.documentElement.style.setProperty('--duration',durationMs+'ms');
+if(q.get('logo')==='0')document.querySelector('.logo').remove();
+function play(){document.body.classList.remove('play');void document.body.offsetWidth;document.body.classList.add('play')}
+play();
+// Rearma sem recarregar quando a fonte fica ativa (evento do obs-browser).
+window.addEventListener('obsSourceActiveChanged',event=>{if(event.detail&&event.detail.active)play()});
+</script></body></html>

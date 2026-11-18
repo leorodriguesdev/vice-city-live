@@ -1,0 +1,34 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=1920,initial-scale=1"><title>Volto já</title><link href="assets/fonts.css" rel="stylesheet"><style>
+:root{--pink:#FF2E88;--orange:#FF8A3D;--purple:#6B2FD6;--cyan:#22E3E3;--ink:#0B0B14;--cream:#FFF5EC;--display:'Bebas Neue',sans-serif;--body:Inter,sans-serif;--brush:Knewave,var(--display);--gta:GTA,var(--display);--slow:12s;--fast:500ms;--pink-glow:color-mix(in srgb,var(--pink) 53%,transparent);--pink-soft:color-mix(in srgb,var(--pink) 33%,transparent)}
+*{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent;color:var(--cream);font-family:var(--body)}
+.city{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,#48105d66,transparent 55%)}
+body:not(.no-bg) .city{display:none}
+.no-bg .art,.no-bg .shade{display:none}
+.moon{position:absolute;top:12%;left:72%;width:110px;height:110px;border-radius:50%;background:#ffb9d8;box-shadow:0 0 65px var(--pink-glow)}
+.buildings{position:absolute;bottom:0;width:100%;height:40%;background:linear-gradient(transparent,#0b0b14dd),linear-gradient(90deg,transparent 0 4%,#111426 4% 8%,transparent 8% 11%,#17132b 11% 17%,transparent 17% 21%,#111426 21% 27%,transparent 27% 31%,#17132b 31% 38%,transparent 38% 43%,#111426 43% 50%,transparent 50% 55%,#17132b 55% 63%,transparent 63% 67%,#111426 67% 74%,transparent 74% 78%,#17132b 78% 86%,transparent 86% 91%,#111426 91% 96%,transparent 96%)}
+.road{position:absolute;bottom:0;height:13%;width:100%;background:linear-gradient(transparent,#090912);border-top:1px solid #22e3e355}
+.art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:drift 30s ease-in-out infinite alternate}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,#0b0b14cc,#0b0b1488 45%,#0b0b1433 75%,transparent),linear-gradient(transparent 70%,#0b0b14bb)}
+.neon{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);text-align:center;padding:40px 90px 46px;border:3px solid var(--pink);border-radius:6px;box-shadow:0 0 18px var(--pink),inset 0 0 18px var(--pink-soft);background:#0b0b14b3;animation:flicker 9s infinite}
+h1{font:170px/1 var(--brush);letter-spacing:.02em;margin:0;color:var(--cream);transform:rotate(-4deg);text-shadow:0 0 8px var(--pink),0 0 30px var(--pink),5px 5px 0 var(--ink)}
+.swash{display:block;width:560px;height:40px;margin:-6px auto 0;transform:rotate(-4deg)}
+.swash .a{fill:var(--pink)}.swash .b{fill:var(--cyan)}
+p{font-size:19px;font-weight:800;letter-spacing:.3em;margin:22px 0 0;color:var(--cyan)}
+.motel{position:absolute;right:10%;top:22%;font:42px var(--display);letter-spacing:.2em;color:var(--pink);border:2px solid var(--pink);padding:18px 25px;writing-mode:vertical-rl;background:#0b0b1488;text-shadow:0 0 16px var(--pink);box-shadow:0 0 25px var(--pink-glow);animation:flicker 7s infinite -3s}
+.logo{position:absolute;left:48px;bottom:40px;width:200px;filter:drop-shadow(0 6px 18px #0b0b14aa)}
+@keyframes flicker{0%,7%,9%,11%,50%,52%,100%{opacity:1}8%,10%,51%{opacity:.76}}
+@keyframes drift{from{transform:scale(1.04) translateX(0)}to{transform:scale(1.08) translateX(-1.5%)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important}}
+</style></head><body>
+<div class="city"><div class="moon"></div><div class="buildings"></div><div class="road"></div></div>
+<img class="art" src="assets/img/bg-brb.webp" alt=""><div class="shade"></div>
+<div class="motel">MOTEL</div>
+<section class="neon"><h1 id="title">VOLTO JÁ</h1><svg class="swash" viewBox="0 0 560 40"><path class="a" d="M12 28Q280 2 552 6L524 14Q280 13 40 36Z"/><path class="b" d="M70 38Q300 18 480 19L452 26Q290 26 94 40Z"/></svg><p id="message">DESCANSANDO UM POUCO...</p></section>
+<img class="logo" src="assets/img/logo-gta6.png" alt="Grand Theft Auto VI">
+<script>
+const q=new URLSearchParams(location.search),get=(k,d)=>q.get(k)||d;
+if(/^#?[0-9a-f]{3,8}$/i.test(q.get('color')||''))document.documentElement.style.setProperty('--pink','#'+q.get('color').replace('#',''));
+if(q.get('bg')==='0')document.body.classList.add('no-bg');
+document.getElementById('title').textContent=get('title','VOLTO JÁ');
+document.getElementById('message').textContent=get('message','DESCANSANDO UM POUCO...');
+</script></body></html>
